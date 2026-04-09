@@ -5,7 +5,9 @@
 <title>Psicología según una adolescente</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-<link rel="icon" href="logo.png">
+
+<!-- favicon -->
+<link rel="icon" type="image/jpeg" href="./logo.jpg">
 
 <style>
 body {
@@ -19,12 +21,18 @@ header {
     background: linear-gradient(90deg, #8B5CF6, #F472B6);
     color: white;
     text-align: center;
-    padding: 40px 20px;
+    padding: 50px 20px;
 }
 
-header img {
-    width: 80px;
-    margin-bottom: 10px;
+.logo {
+    width: 100px;
+    margin-bottom: 15px;
+}
+
+/* si la imagen no carga, esto evita que se rompa */
+.logo:after {
+    content: "Logo";
+    display: block;
 }
 
 .container {
@@ -39,11 +47,6 @@ header img {
     padding: 20px;
     margin-bottom: 30px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    transition: transform 0.2s;
-}
-
-.post:hover {
-    transform: translateY(-5px);
 }
 
 .post h2 a {
@@ -53,6 +56,12 @@ header img {
 
 .post h2 a:hover {
     text-decoration: underline;
+}
+
+.decoracion {
+    display: block;
+    margin: 20px auto;
+    width: 150px;
 }
 
 footer {
@@ -66,12 +75,18 @@ footer {
 <body>
 
 <header>
-    <img src="logo.png" alt="logo">
+    <!-- IMPORTANTE: ./ -->
+    <img src="./logo.jpg" alt="logo" class="logo"
+    onerror="this.style.display='none'">
+
     <h1>Psicología según una adolescente</h1>
     <p>Entender lo que sentimos cuando nadie lo explica</p>
 </header>
 
 <div class="container">
+
+    <img src="./decoracion.jpg" class="decoracion"
+    onerror="this.style.display='none'">
 
     <div class="post">
         <h2><a href="amistades.html">Amistades complicadas</a></h2>
