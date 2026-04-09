@@ -2,11 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Amistades complicadas</title>
+
+<title>¿Por qué me siento sola con mis amigas? | Psicología según una adolescente</title>
+
+<meta name="description" content="Reflexión sobre sentirse sola con amigas, cuando las amistades cambian y cómo aprender a soltar.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-
-<meta name="description" content="Reflexión sobre sentirse sola con amigas y cómo cambian las amistades.">
 
 <style>
 body {
@@ -26,6 +27,15 @@ a {
     color: #8B5CF6;
 }
 
+h1 {
+    margin-bottom: 20px;
+}
+
+p {
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
 button {
     background-color: #E5E7EB;
     border: none;
@@ -41,15 +51,21 @@ button:hover {
     color: white;
 }
 
-button.activo {
-    background-color: #8B5CF6;
-    color: white;
-}
-
 .resultados {
     margin-top: 10px;
     font-size: 0.9em;
     color: #6B7280;
+}
+
+.frase {
+    text-align: center;
+    font-style: italic;
+    margin: 25px 0;
+    color: #6B7280;
+}
+
+.like-box {
+    margin-top: 25px;
 }
 </style>
 </head>
@@ -62,6 +78,8 @@ button.activo {
 
 <h1>¿Por qué me siento sola con mis amigas?</h1>
 
+<p class="frase" id="frase"></p>
+
 <p>A veces estás con tus amigas… pero te sientes sola igual.</p>
 
 <p>Y no es porque no haya gente, es porque algo ya no se siente igual.</p>
@@ -70,52 +88,40 @@ button.activo {
 
 <p>Pero la verdad es esta: las amistades cambian… y no todas duran para siempre.</p>
 
-<p>Hay veces que sientes que algo cambió,
-que algo dejó de ser igual.
+<p>Hay veces que sientes que algo cambió, que algo dejó de ser igual.</p>
 
-Y duele… porque estás tan acostumbrada a esas personas,
-que la simple idea de que ya no formen parte de tu vida
-se siente imposible.
+<p>Y duele… porque estás tan acostumbrada a esas personas, que la simple idea de que ya no formen parte de tu vida se siente imposible.</p>
 
-Pero a veces no es amor…
-a veces es costumbre.
+<p>Pero a veces no es amor… a veces es costumbre.</p>
 
-Y eso confunde más, porque no sabes si lo que sientes es porque realmente quieres quedarte,
-o porque no sabes cómo soltar.
+<p>Y eso confunde más, porque no sabes si lo que sientes es porque realmente quieres quedarte, o porque no sabes cómo soltar.</p>
 
-Hay momentos en los que estás con ellas,
-pero ya no te sientes parte.
-Como si estuvieras ahí… pero no completamente.
+<p>Hay momentos en los que estás con ellas, pero ya no te sientes parte. Como si estuvieras ahí… pero no completamente.</p>
 
-Y entonces empiezas a preguntarte si hiciste algo mal,
-si estás exagerando,
-o si simplemente todo cambió.
+<p>Y entonces empiezas a preguntarte si hiciste algo mal, si estás exagerando, o si simplemente todo cambió.</p>
 
-Pero la verdad es esta:
-no todas las personas que se quedan son buenas para ti,
-y no todas las personas que se van… se van para siempre.
+<p>Pero la verdad es esta: no todas las personas que se quedan son buenas para ti, y no todas las personas que se van… se van para siempre.</p>
 
-A veces crecer también significa aceptar
-que algunas conexiones ya no son como antes.
+<p>A veces crecer también significa aceptar que algunas conexiones ya no son como antes.</p>
 
-Y eso duele…
-pero también enseña.
+<p>Y eso duele… pero también enseña.</p>
 
-También hay que aprender que extrañar a alguien
-no significa que deba volver a tu vida.
+<p>También hay que aprender que extrañar a alguien no significa que deba volver a tu vida.</p>
 
-Muchas veces, si se van, es por algo.
-Y aunque duela, a veces era lo mejor para ti.
+<p>Muchas veces, si se van, es por algo. Y aunque duela, a veces era lo mejor para ti.</p>
 
-Pero cuando extrañas, entras en una negación
-donde no ves lo mal que te hacía esa persona.
+<p>Pero cuando extrañas, entras en una negación donde no ves lo mal que te hacía esa persona.</p>
 
-Y ahí es donde cuesta más soltar.
+<p>Y ahí es donde cuesta más soltar.</p>
 
-Porque soltar a alguien
-no siempre es dejar de querer…
-a veces también es un acto de amor,
-pero hacia ti misma.</p>
+<p>Porque soltar a alguien no siempre es dejar de querer… a veces también es un acto de amor, pero hacia ti misma.</p>
+
+<!-- LIKE -->
+<div class="like-box">
+<h3>💜 ¿Este post te ayudó?</h3>
+<button onclick="like()">Sí, me ayudó</button>
+<p id="likes"></p>
+</div>
 
 <h3>¿Te identificaste?</h3>
 
@@ -133,7 +139,21 @@ pero hacia ti misma.</p>
 
 </div>
 
+<!-- SCRIPTS -->
 <script>
+/* FRASES */
+const frases = [
+"Lo que sientes es válido.",
+"No estás exagerando.",
+"No tienes que encajar en todos lados.",
+"A veces soltar también es sanar.",
+"Sentir mucho no es un defecto."
+];
+
+const random = Math.floor(Math.random() * frases.length);
+document.getElementById("frase").innerText = frases[random];
+
+/* VOTOS */
 let votos = JSON.parse(localStorage.getItem("votosAmistades")) || {
     si: 0,
     mucho: 0,
@@ -149,28 +169,38 @@ function actualizar() {
 function votar(opcion) {
     votos[opcion]++;
     localStorage.setItem("votosAmistades", JSON.stringify(votos));
-
     document.getElementById("mensaje").innerText = "Gracias por compartir 💜";
     actualizar();
 }
 
 actualizar();
+
+/* LIKES */
+let likes = localStorage.getItem("likesAmistades") || 0;
+
+document.getElementById("likes").innerText = likes + " personas dicen que les ayudó";
+
+function like() {
+    likes++;
+    localStorage.setItem("likesAmistades", likes);
+    document.getElementById("likes").innerText = likes + " personas dicen que les ayudó";
+}
 </script>
+
+<!-- COMENTARIOS -->
 <script src="https://giscus.app/client.js"
         data-repo="nataliu-ar/Psicologia-segun-una-adolescente"
         data-repo-id="R_kgDOR9qYag"
         data-category="General"
         data-category-id="DIC_kwDOR9qYas4C6fBG"
         data-mapping="pathname"
-        data-strict="0"
         data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
         data-theme="light_high_contrast"
         data-lang="es"
         data-loading="lazy"
         crossorigin="anonymous"
         async>
 </script>
+
 </body>
 </html>
