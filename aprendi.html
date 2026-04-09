@@ -2,11 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Lo que aprendí tarde</title>
+
+<title>Lo que aprendí tarde sobre la vida y las amistades | Psicología según una adolescente</title>
+
+<meta name="description" content="Cosas que aprendí tarde sobre el amor propio, las amistades y soltar a las personas que no te valoran.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-
-<meta name="description" content="Cosas que aprendí tarde sobre la vida, amistades y emociones en la adolescencia.">
 
 <style>
 body {
@@ -26,6 +27,15 @@ a {
     color: #8B5CF6;
 }
 
+h1 {
+    margin-bottom: 20px;
+}
+
+p {
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
 button {
     background-color: #E5E7EB;
     border: none;
@@ -41,15 +51,21 @@ button:hover {
     color: white;
 }
 
-button.activo {
-    background-color: #8B5CF6;
-    color: white;
-}
-
 .resultados {
     margin-top: 10px;
     font-size: 0.9em;
     color: #6B7280;
+}
+
+.frase {
+    text-align: center;
+    font-style: italic;
+    margin: 25px 0;
+    color: #6B7280;
+}
+
+.like-box {
+    margin-top: 25px;
 }
 </style>
 </head>
@@ -62,25 +78,44 @@ button.activo {
 
 <h1>Lo que aprendí tarde</h1>
 
-<p>
-A veces no es que no supieras… es que nadie te lo dijo cuando más lo necesitabas.
-</p>
+<p class="frase" id="frase"></p>
 
-<p>
-Aprendí que no todos se quedan, aunque tú quieras que lo hagan.
-</p>
+<p>A veces no es que no supieras… es que nadie te lo dijo cuando más lo necesitabas.</p>
 
-<p>
-Que a veces tienes que soltar, incluso cuando todavía quieres.
-</p>
+<p>Aprendí que no todos se quedan, aunque tú quieras que lo hagan.</p>
 
-<p>
-Y que sentir mucho no es un defecto… es parte de quién eres.
-</p>
+<p>Que a veces tienes que soltar, incluso cuando todavía quieres.</p>
 
-<p>
-¿Te ha pasado que cometes errores y luego te das cuenta de lo fácil que era evitarlos? A mí sí. Y aunque duele, también está bien, porque aprendes. Por eso hoy quiero compartirte cosas que yo aprendí a la mala, para que tal vez tú no tengas que pasar por lo mismo. Una de las cosas que más me costó entender es que soltar a alguien que no te valora también es un acto de amor, pero hacia ti. Es darte tu lugar, reconocer lo que vales. Porque si esa persona no lo ve, no es tu trabajo convencerla. Con el tiempo entiendes que algunas personas se quedan y otras solo pasan, pero incluso las que se van dejan aprendizaje. Y aunque en el momento no lo parezca, eso también construye quién eres. También aprendí que si alguien te hace sentir que lo estás obligando a quererte, ahí no es. Tú mereces a alguien que esté contigo por decisión, no por presión. Alguien que pueda irse, pero elija quedarse, porque te valora y entiende que estar contigo vale la pena. Y tal vez lo más importante que he aprendido es que ya no me quedo donde no me siento elegida, aunque me duela irme.
-</p>
+<p>Y que sentir mucho no es un defecto… es parte de quién eres.</p>
+
+<p>¿Te ha pasado que cometes errores y luego te das cuenta de lo fácil que era evitarlos?</p>
+
+<p>A mí sí. Y aunque duele, también está bien, porque aprendes.</p>
+
+<p>Por eso hoy quiero compartirte cosas que yo aprendí a la mala, para que tal vez tú no tengas que pasar por lo mismo.</p>
+
+<p>Una de las cosas que más me costó entender es que soltar a alguien que no te valora también es un acto de amor, pero hacia ti.</p>
+
+<p>Es darte tu lugar, reconocer lo que vales. Porque si esa persona no lo ve, no es tu trabajo convencerla.</p>
+
+<p>Con el tiempo entiendes que algunas personas se quedan y otras solo pasan, pero incluso las que se van dejan aprendizaje.</p>
+
+<p>Y aunque en el momento no lo parezca, eso también construye quién eres.</p>
+
+<p>También aprendí que si alguien te hace sentir que lo estás obligando a quererte, ahí no es.</p>
+
+<p>Tú mereces a alguien que esté contigo por decisión, no por presión.</p>
+
+<p>Alguien que pueda irse, pero elija quedarse, porque te valora y entiende que estar contigo vale la pena.</p>
+
+<p>Y tal vez lo más importante que he aprendido es que ya no me quedo donde no me siento elegida, aunque me duela irme.</p>
+
+<!-- LIKE -->
+<div class="like-box">
+<h3>💜 ¿Este post te ayudó?</h3>
+<button onclick="like()">Sí, me ayudó</button>
+<p id="likes"></p>
+</div>
 
 <h3>¿Te identificaste?</h3>
 
@@ -98,7 +133,21 @@ Y que sentir mucho no es un defecto… es parte de quién eres.
 
 </div>
 
+<!-- SCRIPTS -->
 <script>
+/* FRASES */
+const frases = [
+"Mereces más de lo que aceptas.",
+"Soltar también es quererte.",
+"No tienes que rogar por amor.",
+"Quien quiere estar, se queda.",
+"Elegirte a ti también es importante."
+];
+
+const random = Math.floor(Math.random() * frases.length);
+document.getElementById("frase").innerText = frases[random];
+
+/* VOTOS */
 let votos = JSON.parse(localStorage.getItem("votosAprendi")) || {
     si: 0,
     mucho: 0,
@@ -114,28 +163,38 @@ function actualizar() {
 function votar(opcion) {
     votos[opcion]++;
     localStorage.setItem("votosAprendi", JSON.stringify(votos));
-
     document.getElementById("mensaje").innerText = "Gracias por compartir 💜";
     actualizar();
 }
 
 actualizar();
+
+/* LIKES */
+let likes = localStorage.getItem("likesAprendi") || 0;
+
+document.getElementById("likes").innerText = likes + " personas dicen que les ayudó";
+
+function like() {
+    likes++;
+    localStorage.setItem("likesAprendi", likes);
+    document.getElementById("likes").innerText = likes + " personas dicen que les ayudó";
+}
 </script>
+
+<!-- COMENTARIOS -->
 <script src="https://giscus.app/client.js"
         data-repo="nataliu-ar/Psicologia-segun-una-adolescente"
         data-repo-id="R_kgDOR9qYag"
         data-category="General"
         data-category-id="DIC_kwDOR9qYas4C6fBG"
         data-mapping="pathname"
-        data-strict="0"
         data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
         data-theme="light_high_contrast"
         data-lang="es"
         data-loading="lazy"
         crossorigin="anonymous"
         async>
 </script>
+
 </body>
 </html>
