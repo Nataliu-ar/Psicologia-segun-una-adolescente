@@ -2,11 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Sobrepensar todo</title>
+
+<title>¿Por qué sobrepienso todo? | Psicología según una adolescente</title>
+
+<meta name="description" content="Por qué sobrepensamos todo, el miedo a fallar y cómo salir del ciclo de pensamientos negativos.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-
-<meta name="description" content="Por qué sobrepensamos todo y cómo se siente no poder apagar la mente.">
 
 <style>
 body {
@@ -26,6 +27,15 @@ a {
     color: #8B5CF6;
 }
 
+h1 {
+    margin-bottom: 20px;
+}
+
+p {
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
 button {
     background-color: #E5E7EB;
     border: none;
@@ -41,15 +51,21 @@ button:hover {
     color: white;
 }
 
-button.activo {
-    background-color: #8B5CF6;
-    color: white;
-}
-
 .resultados {
     margin-top: 10px;
     font-size: 0.9em;
     color: #6B7280;
+}
+
+.frase {
+    text-align: center;
+    font-style: italic;
+    margin: 25px 0;
+    color: #6B7280;
+}
+
+.like-box {
+    margin-top: 25px;
 }
 </style>
 </head>
@@ -62,53 +78,42 @@ button.activo {
 
 <h1>¿Por qué no puedo dejar de sobrepensar?</h1>
 
-<p>
-Pensar demasiado no es querer drama…
-es querer entender todo, incluso lo que duele.</p>
+<p class="frase" id="frase"></p>
 
-<p>Repites conversaciones, imaginas escenarios,
-te preguntas si hiciste algo mal…
-y tu mente no se apaga.</p>
+<p>Pensar demasiado no es querer drama… es querer entender todo, incluso lo que duele.</p>
 
-<p>Y aunque sabes que te está cansando,
-no sabes cómo parar.</p>
+<p>Repites conversaciones, imaginas escenarios, te preguntas si hiciste algo mal… y tu mente no se apaga.</p>
 
-<P>Pero tal vez no necesitas dejar de pensar…
-tal vez necesitas dejar de culparte por hacerlo.</p>
+<p>Y aunque sabes que te está cansando, no sabes cómo parar.</p>
 
-<p>En muchas ocasiones creemos que, si analizamos toda la situación mil veces,
-vamos a encontrar nuestro error y podremos arreglarlo todo.
+<p>Pero tal vez no necesitas dejar de pensar… tal vez necesitas dejar de culparte por hacerlo.</p>
 
-Pero llega un punto en el que buscas grietas
-en algo que ni siquiera está roto.
+<p>En muchas ocasiones creemos que, si analizamos toda la situación mil veces, vamos a encontrar nuestro error y podremos arreglarlo todo.</p>
 
-Y no es que seas perfeccionista…
-es que tienes miedo.
+<p>Pero llega un punto en el que buscas grietas en algo que ni siquiera está roto.</p>
 
-Miedo a fallar,
-a perder a los demás,
-a quedarte sola.
+<p>Y no es que seas perfeccionista… es que tienes miedo.</p>
 
-Y ese miedo hace que tu mente se vuelva contra ti,
-haciéndote sentir culpable por cosas mínimas
-o incluso por cosas que ni siquiera dependían de ti.
+<p>Miedo a fallar, a perder a los demás, a quedarte sola.</p>
 
-Ese es el problema de sobrepensar:
-el miedo.
+<p>Y ese miedo hace que tu mente se vuelva contra ti, haciéndote sentir culpable por cosas mínimas o incluso por cosas que ni siquiera dependían de ti.</p>
 
-Porque te enfocas tanto en lo que hiciste mal,
-que olvidas todo lo que haces bien.
+<p>Ese es el problema de sobrepensar: el miedo.</p>
 
-Y si vives viendo solo tus errores,
-nunca te vas a sentir suficiente.
+<p>Porque te enfocas tanto en lo que hiciste mal, que olvidas todo lo que haces bien.</p>
 
-No digo que dejes de sobrepensar de un día para otro,
-sé que no es fácil.
+<p>Y si vives viendo solo tus errores, nunca te vas a sentir suficiente.</p>
 
-Pero poco a poco,
-si empiezas a confiar más en ti
-y en lo que haces bien…
-vas a poder salir de ese ciclo.</p>
+<p>No digo que dejes de sobrepensar de un día para otro, sé que no es fácil.</p>
+
+<p>Pero poco a poco, si empiezas a confiar más en ti y en lo que haces bien… vas a poder salir de ese ciclo.</p>
+
+<!-- LIKE -->
+<div class="like-box">
+<h3>💜 ¿Este post te ayudó?</h3>
+<button onclick="like()">Sí, me ayudó</button>
+<p id="likes"></p>
+</div>
 
 <h3>¿Te identificaste?</h3>
 
@@ -126,7 +131,21 @@ vas a poder salir de ese ciclo.</p>
 
 </div>
 
+<!-- SCRIPTS -->
 <script>
+/* FRASES */
+const frases = [
+"No estás exagerando.",
+"Tu mente solo intenta protegerte.",
+"Pensar mucho también cansa.",
+"No todo es tu culpa.",
+"Eres más fuerte de lo que crees."
+];
+
+const random = Math.floor(Math.random() * frases.length);
+document.getElementById("frase").innerText = frases[random];
+
+/* VOTOS */
 let votos = JSON.parse(localStorage.getItem("votosSobrepensar")) || {
     si: 0,
     mucho: 0,
@@ -142,28 +161,38 @@ function actualizar() {
 function votar(opcion) {
     votos[opcion]++;
     localStorage.setItem("votosSobrepensar", JSON.stringify(votos));
-
     document.getElementById("mensaje").innerText = "Gracias por compartir 💜";
     actualizar();
 }
 
 actualizar();
+
+/* LIKES */
+let likes = localStorage.getItem("likesSobrepensar") || 0;
+
+document.getElementById("likes").innerText = likes + " personas dicen que les ayudó";
+
+function like() {
+    likes++;
+    localStorage.setItem("likesSobrepensar", likes);
+    document.getElementById("likes").innerText = likes + " personas dicen que les ayudó";
+}
 </script>
+
+<!-- COMENTARIOS -->
 <script src="https://giscus.app/client.js"
         data-repo="nataliu-ar/Psicologia-segun-una-adolescente"
         data-repo-id="R_kgDOR9qYag"
         data-category="General"
         data-category-id="DIC_kwDOR9qYas4C6fBG"
         data-mapping="pathname"
-        data-strict="0"
         data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
         data-theme="light_high_contrast"
         data-lang="es"
         data-loading="lazy"
         crossorigin="anonymous"
         async>
 </script>
+
 </body>
 </html>
