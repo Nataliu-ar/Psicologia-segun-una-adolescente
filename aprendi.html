@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Lo que aprendí tarde</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+<meta name="description" content="Cosas que aprendí tarde sobre la vida, amistades y emociones en la adolescencia.">
+
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F9FAFB;
+    padding: 30px;
+    color: #111827;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+}
+
+a {
+    text-decoration: none;
+    color: #8B5CF6;
+}
+
+button {
+    background-color: #E5E7EB;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #F472B6;
+    color: white;
+}
+
+button.activo {
+    background-color: #8B5CF6;
+    color: white;
+}
+
+.resultados {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #6B7280;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a href="index.html">← Volver</a>
+
+<h1>Lo que aprendí tarde</h1>
+
+<p>
+A veces no es que no supieras… es que nadie te lo dijo cuando más lo necesitabas.
+</p>
+
+<p>
+Aprendí que no todos se quedan, aunque tú quieras que lo hagan.
+</p>
+
+<p>
+Que a veces tienes que soltar, incluso cuando todavía quieres.
+</p>
+
+<p>
+Y que sentir mucho no es un defecto… es parte de quién eres.
+</p>
+
+<p>
+¿Te ha pasado que cometes errores y luego te das cuenta de lo fácil que era evitarlos? A mí sí. Y aunque duele, también está bien, porque aprendes. Por eso hoy quiero compartirte cosas que yo aprendí a la mala, para que tal vez tú no tengas que pasar por lo mismo. Una de las cosas que más me costó entender es que soltar a alguien que no te valora también es un acto de amor, pero hacia ti. Es darte tu lugar, reconocer lo que vales. Porque si esa persona no lo ve, no es tu trabajo convencerla. Con el tiempo entiendes que algunas personas se quedan y otras solo pasan, pero incluso las que se van dejan aprendizaje. Y aunque en el momento no lo parezca, eso también construye quién eres. También aprendí que si alguien te hace sentir que lo estás obligando a quererte, ahí no es. Tú mereces a alguien que esté contigo por decisión, no por presión. Alguien que pueda irse, pero elija quedarse, porque te valora y entiende que estar contigo vale la pena. Y tal vez lo más importante que he aprendido es que ya no me quedo donde no me siento elegida, aunque me duela irme.
+</p>
+
+<h3>¿Te identificaste?</h3>
+
+<button onclick="votar('si')">Sí 😔</button>
+<button onclick="votar('mucho')">Mucho 😭</button>
+<button onclick="votar('demasiado')">Demasiado 💀</button>
+
+<p id="mensaje" style="margin-top:10px; color:#8B5CF6;"></p>
+
+<div class="resultados">
+    <p>Sí 😔: <span id="si">0</span></p>
+    <p>Mucho 😭: <span id="mucho">0</span></p>
+    <p>Demasiado 💀: <span id="demasiado">0</span></p>
+</div>
+
+</div>
+
+<script>
+let votos = JSON.parse(localStorage.getItem("votosAprendi")) || {
+    si: 0,
+    mucho: 0,
+    demasiado: 0
+};
+
+function actualizar() {
+    document.getElementById("si").innerText = votos.si;
+    document.getElementById("mucho").innerText = votos.mucho;
+    document.getElementById("demasiado").innerText = votos.demasiado;
+}
+
+function votar(opcion) {
+    votos[opcion]++;
+    localStorage.setItem("votosAprendi", JSON.stringify(votos));
+
+    document.getElementById("mensaje").innerText = "Gracias por compartir 💜";
+    actualizar();
+}
+
+actualizar();
+</script>
+
+</body>
+</html>
