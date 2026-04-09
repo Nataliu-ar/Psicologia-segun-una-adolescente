@@ -6,11 +6,14 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
+<meta name="description" content="Reflexión sobre sentirse sola con amigas y cómo cambian las amistades.">
+
 <style>
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #F9FAFB;
     padding: 30px;
+    color: #111827;
 }
 
 .container {
@@ -22,6 +25,32 @@ a {
     text-decoration: none;
     color: #8B5CF6;
 }
+
+button {
+    background-color: #E5E7EB;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #F472B6;
+    color: white;
+}
+
+button.activo {
+    background-color: #8B5CF6;
+    color: white;
+}
+
+.resultados {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #6B7280;
+}
 </style>
 </head>
 
@@ -31,18 +60,55 @@ a {
 
 <a href="index.html">← Volver</a>
 
-<h1>Amistades complicadas</h1>
+<h1>¿Por qué me siento sola con mis amigas?</h1>
 
-<p>
-Aquí puedes escribir más profundo sobre tus experiencias, lo que sentiste, lo que aprendiste…
-</p>
+<p>A veces estás con tus amigas… pero te sientes sola igual.</p>
+
+<p>Y no es porque no haya gente, es porque algo ya no se siente igual.</p>
+
+<p>Tal vez ya no te cuentan las cosas como antes o sientes que encajas menos.</p>
+
+<p>Pero la verdad es esta: las amistades cambian… y no todas duran para siempre.</p>
 
 <h3>¿Te identificaste?</h3>
-<button>Sí 😔</button>
-<button>Mucho 😭</button>
-<button>Demasiado 💀</button>
+
+<button onclick="votar('si')">Sí 😔</button>
+<button onclick="votar('mucho')">Mucho 😭</button>
+<button onclick="votar('demasiado')">Demasiado 💀</button>
+
+<p id="mensaje" style="margin-top:10px; color:#8B5CF6;"></p>
+
+<div class="resultados">
+    <p>Sí 😔: <span id="si">0</span></p>
+    <p>Mucho 😭: <span id="mucho">0</span></p>
+    <p>Demasiado 💀: <span id="demasiado">0</span></p>
+</div>
 
 </div>
+
+<script>
+let votos = JSON.parse(localStorage.getItem("votosAmistades")) || {
+    si: 0,
+    mucho: 0,
+    demasiado: 0
+};
+
+function actualizar() {
+    document.getElementById("si").innerText = votos.si;
+    document.getElementById("mucho").innerText = votos.mucho;
+    document.getElementById("demasiado").innerText = votos.demasiado;
+}
+
+function votar(opcion) {
+    votos[opcion]++;
+    localStorage.setItem("votosAmistades", JSON.stringify(votos));
+
+    document.getElementById("mensaje").innerText = "Gracias por compartir 💜";
+    actualizar();
+}
+
+actualizar();
+</script>
 
 </body>
 </html>
