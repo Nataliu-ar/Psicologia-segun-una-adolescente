@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+
+<title>¿Por qué veo belleza en todos, excepto en mi? | Psicología según una adolescente</title>
+
+<meta name="description" content="Compararte con los demás incluso sin darte cuenta.">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F9FAFB;
+    padding: 30px;
+    color: #111827;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+}
+
+a {
+    text-decoration: none;
+    color: #8B5CF6;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+p {
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+button {
+    background-color: #E5E7EB;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #F472B6;
+    color: white;
+}
+
+.resultados {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #6B7280;
+}
+
+.frase {
+    text-align: center;
+    font-style: italic;
+    margin: 25px 0;
+    color: #6B7280;
+}
+
+.like-box {
+    margin-top: 25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a href="index.html">← Volver</a>
+
+<h1>¿Por qué me comparo tanto sin darme cuenta?</h1>
+
+<p class="frase" id="frase"></p>
+
+<p>¿Te ha pasado que encuentras belleza en todos, excepto en ti?</p>
+
+<p>Que te das cuenta que las demás son mejores que tú, incluso en lo que eras buena.</p>
+
+<p>En ocasiones vemos personas en redes sociales que lucen perfectas: cuerpo perfecto, pareja perfecta, vida perfecta... pero olvidamos algo importante: solo vemos una parte de su vida, no la historia completa.</p>
+
+<p>A veces no nos damos cuenta de que nos comparamos con personas que son todo lo contrario a nosotras, o que simplemente están mostrando una versión editada de su vida, y sin querer eso nos afecta más de lo que creemos.</p>
+
+<p>Compararse es como competir contra la mejor versión de alguien más, pero con desventaja, porque solo ves lo bueno de esa persona y lo que tú consideras “malo” en ti.</p>
+
+<p>Y lo más raro es que muchas veces ni siquiera lo hacemos a propósito. Es automático. Ves una foto, un cuerpo, una vida, una forma de hablar o de ser… y sin darte cuenta empiezas a pensar: “yo no soy así”, “yo debería ser como ella”, o “¿por qué yo no puedo?”.</p>
+
+<p>El problema es que en ese proceso empiezas a dejar de verte a ti misma con claridad. Lo que antes te gustaba de ti deja de sentirse suficiente. Y lo que antes era normal en ti, ahora lo ves como un defecto.</p>
+
+<p>Y no siempre es solo en redes sociales. A veces pasa con alguien de la vida real: una amiga, una compañera de clase o alguien que admiras mucho.</p>
+
+<p>Sin que esa persona haga nada malo, tú empiezas a sentirte menos, como si estuvieras en una competencia invisible. Y eso puede generar inseguridad, no porque la otra persona sea “mejor”, sino porque tú empiezas a dudar de ti.</p>
+
+<p>La inseguridad hace que te compares más, y la comparación hace que te sientas más insegura. Es como un ciclo que se alimenta solo.</p>
+
+<p>Y lo más fuerte es que esto pasa mucho en la adolescencia, porque estamos descubriendo quiénes somos. En esa etapa es muy fácil perderse entre lo que ves en otros y lo que realmente eres tú.</p>
+
+<p>Pero algo importante es esto: nadie está viendo su vida completa. Todos tienen cosas que no muestran. Todos tienen inseguridades, aunque no se noten. Nadie es perfecto como parece.</p>
+
+<p>Aprender a no compararte no es dejar de ver a los demás, es dejar de usarlos como medida de tu valor. Porque tú no estás en competencia con nadie.</p>
+
+<p>Y aunque suene cliché, tu proceso es tuyo. Vas a verte diferente, crecer diferente y brillar en cosas distintas. Y eso no te hace menos, te hace tú.</p>
+
+<!-- LIKE -->
+<div class="like-box">
+<h3>💜 ¿Este post te ayudó?</h3>
+<button onclick="like()">Sí, me ayudó</button>
+<p id="likes"></p>
+</div>
+
+<h3>¿Te identificaste?</h3>
+
+<button onclick="votar('si')">Sí 😔</button>
+<button onclick="votar('mucho')">Mucho 😭</button>
+<button onclick="votar('demasiado')">Demasiado 💀</button>
+
+<p id="mensaje" style="margin-top:10px; color:#8B5CF6;"></p>
+
+<div class="resultados">
+    <p>Sí 😔: <span id="si">0</span></p>
+    <p>Mucho 😭: <span id="mucho">0</span></p>
+    <p>Demasiado 💀: <span id="demasiado">0</span></p>
+</div>
+
+</div>
+
+<!-- SCRIPTS -->
+<script>
+/* FRASES */
+const frases = [
+"Lo que sientes es válido.",
+"No estás exagerando.",
+"No tienes que encajar en todos lados.",
+"A veces soltar también es sanar.",
+"Sentir mucho no es un defecto."
+];
+
+const random = Math.floor(Math.random() * frases.length);
+document.getElementById("frase").innerText = frases[random];
+
+/* VOTOS */
+let votos = JSON.parse(localStorage.getItem("votosAmistades")) || {
+    si: 0,
+    mucho: 0,
+    demasiado: 0
+};
+
+function actualizar() {
+    document.getElementById("si").innerText = votos.si;
+    document.getElementById("mucho").innerText = votos.mucho;
+    document.getElementById("demasiado").innerText = votos.demasiado;
+}
+
+function votar(opcion) {
+    votos[opcion]++;
+    localStorage.setItem("votosAmistades", JSON.stringify(votos));
+    document.getElementById("mensaje").innerText = "Gracias por compartir 💜";
+    actualizar();
+}
+
+actualizar();
+
+/* LIKES */
+let likes = localStorage.getItem("likesAmistades") || 0;
+
+document.getElementById("likes").innerText = likes + " personas dicen que les ayudó";
+
+function like() {
+    likes++;
+    localStorage.setItem("likesAmistades", likes);
+    document.getElementById("likes").innerText = likes + " personas dicen que les ayudó";
+}
+</script>
+
+<!-- COMENTARIOS -->
+<script src="https://giscus.app/client.js"
+        data-repo="nataliu-ar/Psicologia-segun-una-adolescente"
+        data-repo-id="R_kgDOR9qYag"
+        data-category="General"
+        data-category-id="DIC_kwDOR9qYas4C6fBG"
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-theme="light_high_contrast"
+        data-lang="es"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</body>
+</html>
